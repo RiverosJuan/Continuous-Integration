@@ -1,0 +1,14 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: instance
+    image: ubuntu:22.04
+    ansible_python_interpreter: /usr/bin/python3
+    pre_build_image: false
+provisioner:
+  name: ansible
+verifier:
+  name: ansible

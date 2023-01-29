@@ -1,0 +1,36 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+- name: Verify 
+  hosts: all
+  gather_facts: false
+  tasks:
+  - name: Check if file exists
+    stat:
+      path: /home/test/.gitconfig
+    register: gitconfigcheck
+
+  - name: Check if git-credentials exists
+    stat:
+      path: /home/test/.git-credentials
+    register: gitcredentialscheck
+
+  - name: Check that .gitconfig exists
+    assert:
+      msg: "The Path .gitconfig does not exist"
+      that: gitconfigcheck.stat.exists
+
+  - name: Check that .gitconfig exists
+    assert:
+      msg: "The Path .gitconfig does not exist"
+      that: gitconfigcheck.stat.exists
+
+  - name: Get build-essential
+    package:
+      name: build-essential
+      state: present
+
+  - name: Get git
+    package:
+      name: git
+      state: present

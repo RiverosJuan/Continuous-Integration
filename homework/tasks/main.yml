@@ -1,0 +1,31 @@
+---
+# tasks file for homework
+- name: Add the user 'test' with a primary group of 'admin'
+  ansible.builtin.user:
+    name: test
+    comment: Test User
+
+- name: Set home directory for Linux
+  set_fact:
+    home_directory: /home/test
+  when: ansible_os_family == "Debian"
+
+- name: Get git
+  package:
+    name: git
+    state: present
+
+- name: Get build-essential
+  package:
+    name: build-essential
+    state: present
+ 
+- name: Create .gitconfig file
+  template:
+    src: ./templates/gitconfig.j2
+    dest: home/test/.gitconfig
+
+- name: Create .git-credentials file
+  template:
+    src: ./templates/git-credentials.j2
+    dest: home/test/.git-credentials
